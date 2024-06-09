@@ -1,21 +1,17 @@
+import React from "react";
 import { IModalProps } from "./types";
-import { useModal } from "./useModal";
+import { ModalContent, StyledModal } from "./styles";
 
-const Modal: React.FC<IModalProps> = ({ title, children }) => {
-  const { isOpen, openModal, closeModal } = useModal();
-
+const Modal: React.FC<IModalProps> = ({ title, children, isOpen }) => {
   return (
     <div>
-      <button onClick={openModal}>{title}</button>
       {isOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
+        <StyledModal>
+          <ModalContent>
+            <h2> {title}</h2>
             {children}
-          </div>
-        </div>
+          </ModalContent>
+        </StyledModal>
       )}
     </div>
   );

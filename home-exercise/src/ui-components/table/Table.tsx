@@ -1,33 +1,75 @@
-import React from "react";
-import TableHeader from "./TableHeader";
-import TableBody from "./TableBody";
+import React, { useState } from "react";
 import { ICategoryData } from "../../common";
+import Button from "../button/Button";
+import { ESeverity } from "../button/types";
+import { useModal } from "../modal/useModal";
+import EditTableForm from "./EditTableForm";
+import TableBody from "./TableBody";
+import TableHeader from "./TableHeader";
+import { StyledTableActions, StyledTableWrapper } from "./styles";
+import { IDataTableProps } from "./types";
 
-interface DataTableProps<T> {
-  data?: T[];
-  onDelete?: (index: number) => void;
-  onEdit?: (index: number) => void;
-}
-
-const Table: React.FC<DataTableProps<ICategoryData>> = ({ data, onDelete, onEdit }) => {
+const Table: React.FC<IDataTableProps<ICategoryData>> = ({
+  data,
+  onDelete,
+  onEdit,
+  category = "",
+}) => {
+  const [editIdx, setEditIdx] = useState<number | null>(null);
+  const [formData, setFormData] = useState<ICategoryData | null>(null);
+  const { isOpen, openModal, closeModal } = useModal();
   const handleDelete = (index: number) => {
     onDelete?.(index);
+    alert("Row deleted successfully");
   };
 
   const handleEdit = (index: number) => {
-    onEdit?.(index);
+    setEditIdx(index);
+    setFormData(data?.[index] || null);
+    openModal();
   };
+
+  const handleSave = () => {
+    if (editIdx !== null && formData) {
+      onEdit?.(editIdx, formData);
+      setEditIdx(null);
+      setFormData(null);
+    }
+    closeModal();
+  };
+
   return (
-    <table>
-      {data?.map((item, index) => (
-        <React.Fragment key={index}>
-          <TableHeader keys={Object.keys(item)} />
-          <TableBody data={item} keys={Object.keys(item)} />
-          <button onClick={() => handleEdit(index)}>Edit</button>
-          <button onClick={() => handleDelete(index)}>Delete</button>
-        </React.Fragment>
-      ))}
-    </table>
+    <>
+      <table>
+        {data?.map((item, index) => (
+          <StyledTableWrapper>
+            <div key={index}>
+              <TableHeader keys={Object.keys(item)} />
+              <TableBody data={item} keys={Object.keys(item)} />
+            </div>
+            <StyledTableActions>
+              <Button onClick={() => handleEdit(index)} text="Edit" severity={ESeverity.Info} />
+              <Button
+                onClick={() => handleDelete(index)}
+                text="Delete"
+                severity={ESeverity.Error}
+              />
+            </StyledTableActions>
+          </StyledTableWrapper>
+        ))}
+      </table>
+      {editIdx !== null && (
+        <EditTableForm
+          isOpen={isOpen}
+          onClose={closeModal}
+          onSave={handleSave}
+          initialData={formData}
+          category={category}
+          setFormData={setFormData}
+          formData={formData}
+        />
+      )}
+    </>
   );
 };
 

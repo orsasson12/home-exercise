@@ -7,17 +7,15 @@ import { useEffect, useState } from "react";
 
 const CategoryPage = () => {
   const { category } = useParams<{ category: string }>();
-
   const { data, isLoading, error } = useFetch({ category });
 
-  // Move the state initialization after the useFetch hook
   const initialCategoryData = data ? filterData(data[0]?.results) : [];
-
   const [categoryData, setCategoryData] = useState<ICategoryData[]>([]);
 
   useEffect(() => {
     setCategoryData(initialCategoryData as ICategoryData[]);
-  }, []);
+  }, [data]);
+
   if (isLoading) return <Loader />;
   if (error) return <div>Error: {error}</div>;
 
@@ -26,16 +24,15 @@ const CategoryPage = () => {
     setCategoryData(updatedData);
   };
 
-  const handleEdit = (index: number) => {
-    const selectedItem = categoryData.find((_, i) => i === index);
-    console.log(selectedItem);
-
+  const handleEdit = (index: number, updatedItem: ICategoryData) => {
+    const updatedData = categoryData.map((item, i) => (i === index ? updatedItem : item));
+    setCategoryData(updatedData);
   };
 
   return (
     <div>
       <h1>Results for {category}</h1>
-      <Table data={categoryData} onDelete={handleDelete} onEdit={handleEdit} />
+      <Table data={categoryData} onDelete={handleDelete} onEdit={handleEdit} category={category} />
     </div>
   );
 };
