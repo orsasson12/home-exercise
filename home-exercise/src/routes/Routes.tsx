@@ -1,5 +1,5 @@
-import CategoryPage from "../components/category-page/CategoryPage";
-import Home from "../components/home-page/Home";
+import CategoryPage from "../pages/category-page/CategoryPage";
+import Home from "../pages/home-page/Home";
 import { ERoutes } from "./types";
 
 export const routes = [

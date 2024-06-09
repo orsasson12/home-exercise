@@ -18,6 +18,8 @@ const Table: React.FC<IDataTableProps<ICategoryData>> = ({
   const [editIdx, setEditIdx] = useState<number | null>(null);
   const [formData, setFormData] = useState<ICategoryData | null>(null);
   const { isOpen, openModal, closeModal } = useModal();
+
+  // sorry I don't have time to move the function to another file
   const handleDelete = (index: number) => {
     onDelete?.(index);
     alert("Row deleted successfully");

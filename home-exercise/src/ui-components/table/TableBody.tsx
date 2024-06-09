@@ -1,3 +1,4 @@
+import { URL_KEY, CREATED_KEY, EDITED_KEY } from "./consts";
 import { StyledTd } from "./styles";
 import { ITableBodyProps } from "./types";
 
@@ -9,7 +10,7 @@ const TableBody: React.FC<ITableBodyProps> = ({ data, keys }) => {
       <tr>
         {values.map((value, index) => (
           <StyledTd key={keys[index]}>
-            {keys[index] === "url" || keys[index] === "created" || keys[index] === "edited"
+            {keys[index] === URL_KEY || keys[index] === CREATED_KEY || keys[index] === EDITED_KEY
               ? new Date(value).toLocaleString()
               : value}
           </StyledTd>
