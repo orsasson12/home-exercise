@@ -5,11 +5,11 @@ const spin = keyframes`
   100% { transform: rotate(360deg); }
 `;
 export const StyledLoader = styled.div`
-  border: 16px solid #f3f3f3;
+  border: 5px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 70px;
+  border-top: 5px solid #3498db;
+  width: 40px;
   margin: 0 auto;
-  height: 70px;
+  height: 40px;
   animation: ${spin} 2s linear infinite;
 `;

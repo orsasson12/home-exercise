@@ -1,9 +1,23 @@
 export interface IData {
   category: string;
-  results: IResult[];
+  results: ICategoryData[];
 }
 
-interface IResult {
-  name?: string;
-  title?: string;
+export interface ICategoryData {
+  name: string;
+  height?: string;
+  mass?: string;
+  hair_color?: string;
+  skin_color?: string;
+  eye_color?: string;
+  birth_year?: string;
+  gender?: string;
+  homeworld?: string;
+  films?: string[];
+  species?: string[];
+  vehicles?: string[];
+  starships?: string[];
+  created?: string;
+  edited?: string;
+  url?: string;
 }

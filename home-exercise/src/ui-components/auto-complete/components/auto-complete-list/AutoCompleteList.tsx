@@ -1,8 +1,26 @@
+import React from "react";
 import Button from "../../../button/Button";
-import { StyledAutoCompleteList, StyledResultsList, StyledViewMoreButtonWrapper } from "./styles";
+import {
+  StyledAutoCompleteList,
+  StyledEmptyResults,
+  StyledResultsList,
+  StyledViewMoreButtonWrapper,
+} from "./styles";
 import { IAutoCompleteListProps } from "./types";
-
+import { useNavigate } from "react-router-dom";
+import { ERoutes } from "../../../../routes/types";
 const AutoCompleteList: React.FC<IAutoCompleteListProps> = ({ data }) => {
+  const allResultsEmpty = data.every(({ results }) => results.length === 0);
+  const navigate = useNavigate();
+
+  if (allResultsEmpty) {
+    return <StyledEmptyResults>No Results...</StyledEmptyResults>;
+  }
+
+  const handleViewMoreClick = (category: string) => {
+    const path = ERoutes.Details.replace(":category", category);
+    navigate(path);
+  };
   return (
     <StyledAutoCompleteList>
       {data.map(({ category, results }, index) => {
@@ -14,11 +32,11 @@ const AutoCompleteList: React.FC<IAutoCompleteListProps> = ({ data }) => {
             <h3>{categoryTitle}:</h3>
             <StyledResultsList>
               {filteredResults.map((result, idx) => {
-                const resultTitle = result.name || result.title;
-                return <li key={idx}>{resultTitle} </li>;
+                const resultTitle = result.name;
+                return <li key={idx}>{resultTitle}</li>;
               })}
               <StyledViewMoreButtonWrapper>
-                <Button text="View more" />
+                <Button text="View more" onClick={() => handleViewMoreClick(category)} />
               </StyledViewMoreButtonWrapper>
             </StyledResultsList>
           </li>

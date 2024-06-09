@@ -3,11 +3,11 @@ import { debounce } from "lodash";
 
 export const useAutoComplete = () => {
   const [inputValue, setInputValue] = useState("");
-  const [input, setInput] = useState("");
+  const [inputQuery, setInputQuery] = useState("");
 
   const debouncedFetchData = useCallback(
     debounce((input: string) => {
-      setInput(input);
+      setInputQuery(input);
     }, 500),
     []
   );
@@ -21,6 +21,6 @@ export const useAutoComplete = () => {
   return {
     inputValue,
     handleInputChange,
-    input,
+    inputQuery,
   };
 };

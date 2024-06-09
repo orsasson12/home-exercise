@@ -22,3 +22,12 @@ export const StyledResultsList = styled.ul`
 export const StyledViewMoreButtonWrapper = styled.div`
   align-self: flex-end;
 `;
+
+export const StyledEmptyResults = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 24px;
+  padding: 5px;
+`;

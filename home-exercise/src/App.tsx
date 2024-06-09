@@ -1,11 +1,7 @@
-import AutoComplete from "./ui-components/auto-complete/components/AutoComplete";
+import MainContainer from "./routes/container/MainContainer";
 
 function App() {
-  return (
-    <div>
-      <AutoComplete />
-    </div>
-  );
+  return <MainContainer />;
 }
 
 export default App;
