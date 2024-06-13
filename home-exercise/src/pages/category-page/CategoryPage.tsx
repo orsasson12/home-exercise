@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { ICategoryData, useFetch } from "../../common";
 import Loader from "../../ui-components/loader/Loader";
-import Table from "../../ui-components/table/Table";
+import Table from "../../ui-components/table/mui/MuiTable";
 import { filterData } from "./utils";
 import { useEffect, useState } from "react";
 

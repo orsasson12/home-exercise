@@ -1,8 +1,10 @@
 import { ICategoryData } from "../../common";
 
 export interface ITableBodyProps {
-  data: Record<string, any>;
-  keys: string[];
+  keys?: string[];
+  data?: ICategoryData[];
+  handleEdit: (index: number) => void;
+  handleDelete: (index: number) => void;
 }
 export interface ITableHeaderProps {
   keys: string[];
@@ -23,4 +25,26 @@ export interface IDataTableProps<T> {
   onDelete?: (index: number) => void;
   onEdit?: (index: number, updatedItem: T) => void;
   category?: string;
+}
+
+export interface IHandleDeleteProps {
+  index: number;
+  onDelete?: (index: number) => void;
+}
+
+export interface IHandleEditProps {
+  index: number;
+  data: ICategoryData[] | undefined;
+  setEditIdx: (index: number | null) => void;
+  setFormData: (data: ICategoryData | null) => void;
+  openModal: () => void;
+}
+
+export interface IHandleSaveProps {
+  editIdx: number | null;
+  updatedData: ICategoryData;
+  onEdit?: (index: number, data: ICategoryData) => void;
+  setEditIdx?: (index: number | null) => void;
+  setFormData?: (data: ICategoryData | null) => void;
+  closeModal?: () => void;
 }

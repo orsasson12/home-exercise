@@ -1,4 +1,4 @@
-import AutoComplete from "../../ui-components/auto-complete/components/AutoComplete";
+import AutoComplete from "../../ui-components/auto-complete/components/MuiAutoComplete";
 
 const Home = () => {
   return (
